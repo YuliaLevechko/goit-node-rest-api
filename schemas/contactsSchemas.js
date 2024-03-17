@@ -1,4 +1,4 @@
-const Joi = require("joi");
+import Joi from "joi";
 
 const createContactSchema = Joi.object({
   name: Joi.string().required(),
@@ -12,4 +12,4 @@ const updateContactSchema = Joi.object({
   phone: Joi.string(),
 });
 
-module.exports = { createContactSchema, updateContactSchema };
+export { createContactSchema, updateContactSchema };

@@ -1,5 +1,6 @@
-const contactsService = require("../services/contactsServices.js");
-const ctrlWrapper = require("../helpers/ctrlWrapper.js");
+import * as contactsService from "../services/contactsServices.js";
+import { ctrlWrapper } from "../helpers/ctrlWrapper.js";
+import { HttpError } from "../helpers/HttpError.js";
 
 const getAllContacts = async (req, res) => {
     const result = await contactsService.listContacts();
@@ -42,10 +43,8 @@ const updateContact = async (req, res) => {
 };
 
 
-module.exports = {
-    createContact: ctrlWrapper(createContact),
-    updateContact: ctrlWrapper(updateContact),
-    deleteContact: ctrlWrapper(deleteContact),
-    getOneContact: ctrlWrapper(getOneContact),
-    getAllContacts: ctrlWrapper(getAllContacts)
-}
+export const createContactHandler = ctrlWrapper(createContact);
+export const updateContactHandler = ctrlWrapper(updateContact);
+export const deleteContactHandler = ctrlWrapper(deleteContact);
+export const getOneContactHandler = ctrlWrapper(getOneContact);
+export const getAllContactsHandler = ctrlWrapper(getAllContacts);
