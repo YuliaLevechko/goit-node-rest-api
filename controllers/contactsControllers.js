@@ -45,12 +45,12 @@ const updateContact = async (req, res) => {
 
 const updateStatusContact = async (req, res) => {
     try {
-        const contactId = req.params.id;
+        const { id } = req.params;
         const { favorite } = req.body;
         if (typeof favorite !== 'boolean') {
             return res.status(400).json({ message: 'Favorite must be a boolean value' });
         }
-        const updatedContact = await contactsService.findByIdAndUpdate(contactId, { favorite }, { new: true });
+        const updatedContact = await contactsService.updateContactById(id, { favorite }, { new: true });
         if (!updatedContact) {
             return res.status(404).json({ message: 'Not found' });
         }
