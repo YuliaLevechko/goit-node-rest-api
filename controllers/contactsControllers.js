@@ -43,9 +43,27 @@ const updateContact = async (req, res) => {
     res.json(result);
 };
 
+const updateStatusContact = async (req, res) => {
+    try {
+        const contactId = req.params.id;
+        const { favorite } = req.body;
+        if (typeof favorite !== 'boolean') {
+            return res.status(400).json({ message: 'Favorite must be a boolean value' });
+        }
+        const updatedContact = await contactsService.findByIdAndUpdate(contactId, { favorite }, { new: true });
+        if (!updatedContact) {
+            return res.status(404).json({ message: 'Not found' });
+        }
+        res.status(200).json(updatedContact);
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+
 
 export const createContactHandler = ctrlWrapper(createContact);
 export const updateContactHandler = ctrlWrapper(updateContact);
 export const deleteContactHandler = ctrlWrapper(deleteContact);
 export const getOneContactHandler = ctrlWrapper(getOneContact);
 export const getAllContactsHandler = ctrlWrapper(getAllContacts);
+export const updateStatusContactHandler = ctrlWrapper(updateStatusContact);
