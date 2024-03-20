@@ -16,6 +16,12 @@ const contactSchema = new Schema(
     favorite: {
       type: Boolean,
       default: false,
+       validate: {
+            validator: function (value) {
+                return typeof value === 'boolean';
+            },
+            message:'Favourite must be a boolean value'
+        }
     },
   },
   { versionKey: false, timestamps: true }
